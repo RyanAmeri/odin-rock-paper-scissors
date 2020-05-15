@@ -12,7 +12,74 @@
   
         
         <script>
-            
+            game();
+            function game(){
+                for (let i = 0; i < 5; i++){
+                    let playerSelection = window.prompt(`Round ${i + 1} Enter your choice:`);
+
+                    while (!checkInput(playerSelection)){
+                        
+                        console.log("Your input is not valid");
+                        playerSelection = window.prompt(`Round ${i + 1} Enter your choice:`);
+                    }
+                    
+
+                    const computerSelection = computerPlay();
+                    console.log(playRound(playerSelection, computerSelection));    
+                    
+                }
+                
+            }
+            function checkInput(text){
+                let check = false;
+                if (typeof(text) === undefined){
+                    return check;
+                }
+                else {
+                    text = text.toLowerCase();
+                    text = text.trim();
+                    (text == 'rock' || text == 'paper' || text == 'scissors') ? check = true: check = false;
+                    return check;
+                }
+            }
+            function playRound(playerSelection,computerSelection){
+                if (playerSelection == 'rock'){
+                    if (computerSelection == 'rock')
+                        return `It's a tie! ${playerSelection} and ${computerSelection} are equal.`;
+                    else if (computerSelection == 'paper')
+                        return `You lose! ${computerSelection} beats ${playerSelection}`;
+                    else 
+                        return `You win! ${playerSelection} beats ${computerSelection}`;
+                }
+                if (playerSelection == 'paper'){
+                    if (computerSelection == 'paper')
+                        return `It's a tie! ${playerSelection} and ${computerSelection} are equal.`;
+                    else if (computerSelection == 'scissors')
+                        return `You lose! ${computerSelection} beats ${playerSelection}`;
+                    else 
+                        return `You win! ${playerSelection} beats ${computerSelection}`;
+                }
+                if (playerSelection == 'scissors'){
+                    if (computerSelection == 'scissors')
+                        return `It's a tie! ${playerSelection} and ${computerSelection} are equal.`;
+                    else if (computerSelection == 'rock')
+                        return `You lose! ${computerSelection} beats ${playerSelection}`;
+                    else 
+                        return `You win! ${playerSelection} beats ${computerSelection}`;
+                }
+            }
+            function computerPlay(){
+                let x = Math.random();
+                if (x < 0.33){
+                    return "rock";
+                }
+                else if (x < 0.66){
+                    return "scissors";
+                }
+                else {
+                    return "paper";
+                }
+            }
         </script>
     </body>
 </html>
