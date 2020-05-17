@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <div id="container">
+
+        </div>
+        <script>
+            const buttons = document.querySelectorAll('button');
+            let playerWins = 0;
+            let computerWins = 0;
+            
+            
+            
+            // we use the .forEach method to iterate through each button
+            buttons.forEach((button) => {
+                
+                // and for each one we add a 'click' listener
+                button.addEventListener('click', (e) => {
+                    const computerSelection = computerPlay();
+                    const winner = playRound(button.id, computerSelection);
+                    calculateScore(winner);
+                    display(winner, button.id, computerSelection);
+                    endGame();
+                });
+            });
+
+            function endGame(){
+                const container = document.querySelector('#container');
+                if (playerWins === 5){
+                    container.innerHTML = '<p> The Game has finished!</p>';
+                    alert("Player won 5 games. Player has won the match");
+                }
+                if (computerWins === 5){
+                    container.innerHTML = '<p> The Game has finished!</p>';
+                    alert("Computer won 5 games. Computer has won the match");
+                }
+            }
+
+            function calculateScore(winner){
+                if (winner == 'computer')
+                    computerWins += 1;
+                else if (winner == 'player')
+                    playerWins += 1;
+            }
+
+            function display(winner, playerSelection, computerSelection){
+                const container = document.querySelector('#container');
+                const par = document.createElement('p');
+                const par2 = document.createElement('p');
+                par.textContent = `You selected ${playerSelection}. The computer selected ${computerSelection}. The winner is ${winner}`;
+                container.appendChild(par);
+                par2.textContent = `The currnet score is Player: ${playerWins} Computer: ${computerWins}`;
+                container.appendChild(par2);
+            }
+            
+            function playRound(playerSelection,computerSelection){
+                let winner = "";
+                if (playerSelection == 'rock'){
+                    if (computerSelection == 'rock')
+                        winner = "tie";
+                    else if (computerSelection == 'paper')
+                        winner = "computer";
+                    else 
+                        winner = "player";
+                }
+                if (playerSelection == 'paper'){
+                    if (computerSelection == 'paper')
+                        winner = "tie";
+                    else if (computerSelection == 'scissors')
+                        winner = "computer";
+                    else 
+                        winner = "player";
+                }
+                if (playerSelection == 'scissors'){
+                    if (computerSelection == 'scissors')
+                        winner = "tie";
+                    else if (computerSelection == 'rock')
+                        winner = "computer";
+                    else 
+                        winner = "player";
+                }
+                return winner;
+            }
+            function computerPlay(){
+                let x = Math.random();
+                if (x < 0.33){
+                    return "rock";
+                }
+                else if (x < 0.66){
+                    return "scissors";
+                }
+                else {
+                    return "paper";
+                }
+            }
+        </script>
+    </body>
+</html>
