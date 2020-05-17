@@ -40,10 +40,14 @@
                 if (playerWins === 5){
                     container.innerHTML = '<p> The Game has finished!</p>';
                     alert("Player won 5 games. Player has won the match");
+                    playerWins = 0;
+                    computerWins = 0;
                 }
                 if (computerWins === 5){
                     container.innerHTML = '<p> The Game has finished!</p>';
                     alert("Computer won 5 games. Computer has won the match");
+                    playerWins = 0;
+                    computerWins = 0;
                 }
             }
 
